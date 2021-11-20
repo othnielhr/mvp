@@ -8,9 +8,6 @@ const RepoList = (props) => {
 
   return (
     <div>
-      {/* <h4> Repo List Component </h4> */}
-      There are {props.repos.length} repos displayed.
-      <h2>Repo by Username(#Forks)</h2>
       <ul>{repos}</ul>
     </div>
   )

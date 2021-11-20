@@ -9,30 +9,24 @@ app.use(express.static(__dirname + '/../client/dist'));
 app.use(bodyParser.json());
 
 app.post('/repos', function (req, res) {
-  // TODO - your code here!
-  // This route should take the github username provided
-  // and get the repo information from the github API, then
-  // save the repo information in the database
-  // console.log('req body', req.body);
   let username = req.body.term;
-  // console.log(username);
-  // use axios to send a get request to github api
   getReposByUsername(username, (resData) => {
-    // console.log('res data', resData);
-    // let data = JSON.parse(resData);
-    resData.forEach((repo) => {
-      let repoObj = {forks: repo.forks, username: repo.owner.login, url: repo.html_url, repo: repo.name }
-      // console.log(repoObj);
-      insertToDb.save(repoObj);
+    // console.log('res data', resData[0]);
+    resData.forEach((card) => {
+      // console.log('card', card)
+      if (card.cardmarket === undefined) {
+        return;
+      }
+      let cardObj = {cardName: card.name, price: card.cardmarket.prices.averageSellPrice || 0, imgurl: card.images.small};
+      insertToDb.save(cardObj);
     });
+    // let cardObj = {cardName: resData.name, price: resData.cardmarket.prices.averageSellPrice, imgurl: resData.images.small};
+    // insertToDb.save(cardObj);
     res.sendStatus(201);
   })
 });
 
 app.get('/repos', function (req, res) {
-  // TODO - your code here!
-  // This route should send back the top 25 repos
-  // console.log('req', req);
   insertToDb.find()
   .then(repos => {
     res.send(repos);
@@ -48,6 +42,3 @@ let port = 1128;
 app.listen(port, function() {
   console.log(`listening on port ${port}`);
 });
-
-//demo and approved by Mackenzie
-//BMR reached

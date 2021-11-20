@@ -2,15 +2,14 @@ import React from 'react';
 import RepoList from './RepoList.jsx';
 
 var ReactEntry = (props) => {
-  let repo_name = props.data.repo;
-  let username = props.data.username;
-  let forks = props.data.forks;
-  let url = props.data.url;
+  let repo_name = props.data.imgurl;
+  let username = props.data.cardName;
+  let forks = props.data.price;
 
   return (
     <li>
       {/* {console.log('entry')} */}
-      <span><a href={url}>{repo_name}</a> by </span><span> {username} </span><span> ({forks} forks) </span>
+      <span><img src={repo_name}/></span><span> {username} </span><span> (price: ${forks}) </span>
     </li>
   )
 };
