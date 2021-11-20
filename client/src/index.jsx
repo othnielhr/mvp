@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import Search from './components/Search.jsx';
-import List from './components/List.jsx';
+import RepoList from './components/RepoList.jsx';
 import axios from 'axios';
 
 class App extends React.Component {
@@ -51,7 +51,7 @@ class App extends React.Component {
   render () {
     return (<div>
       <h1>Pokemon Card Price Tracker</h1>
-      <List repos={this.state.repos}/>
+      <RepoList repos={this.state.repos}/>
       <Search onSearch={this.search.bind(this)}/>
     </div>)
   }
