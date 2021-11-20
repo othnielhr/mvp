@@ -51,7 +51,7 @@ class App extends React.Component {
   render () {
     return (<div>
       <h1>Pokemon Card Price Tracker</h1>
-      <RepoList repos={this.state.repos}/>
+      <List repos={this.state.repos}/>
       <Search onSearch={this.search.bind(this)}/>
     </div>)
   }
