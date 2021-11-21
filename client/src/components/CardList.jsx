@@ -1,16 +1,16 @@
 import React from 'react';
-import ReactEntry from './RepoEntry.jsx';
+import ReactEntry from './CardEntry.jsx';
 
-const RepoList = (props) => {
-  let repos = props.repos.map(repo => {
-    return ( <ReactEntry key={repo._id} data={repo} />)
+const CardList = (props) => {
+  let cards = props.cards.map(card => {
+    return ( <ReactEntry key={card._id} data={card} />)
   });
 
   return (
     <div>
-      <ul>{repos}</ul>
+      <ul>{cards}</ul>
     </div>
   )
 }
 
-export default RepoList;
+export default CardList;

@@ -2,16 +2,17 @@ const express = require('express');
 let app = express();
 
 const bodyParser = require('body-parser');
-const getCard = require('../helpers/github.js').getCard;
+const cardGetter = require('../helpers/github.js');
 const insertToDb = require('../database/index.js');
 
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(bodyParser.json());
 
-app.post('/repos', function (req, res) {
+app.post('/cards', function (req, res) {
   let cardname = req.body.term;
-  getCard(cardname, (resData) => {
-    // console.log('res data', resData[0]);
+  // console.log('got here', cardname);
+  cardGetter.getCardByName(cardname, (resData) => {
+    console.log('res data', resData[0]);
     resData.forEach((card) => {
       // console.log('card', card)
       if (card.cardmarket === undefined) {
@@ -26,13 +27,13 @@ app.post('/repos', function (req, res) {
   })
 });
 
-app.get('/repos', function (req, res) {
+app.get('/cards', function (req, res) {
   insertToDb.find()
   .then(cards => {
     res.send(cards);
   })
   .catch(err => {
-    console.log('err', err);
+    console.log('err get', err);
     res.sendStatus(500);
   });
 });

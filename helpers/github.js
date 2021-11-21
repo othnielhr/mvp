@@ -1,9 +1,9 @@
 const axios = require('axios');
 const config = require('../config.js');
 
-let getReposByUsername = (user, callback) => {
+module.exports.getCardByName = (cardname, callback) => {
   let options = {
-    url: `https://api.pokemontcg.io/v2/cards?q=name:${user}`,
+    url: `https://api.pokemontcg.io/v2/cards?q=name:${cardname}`,
     headers: {
       'User-Agent': 'request',
       'Authorization': `token ${config.TOKEN}`
@@ -15,9 +15,9 @@ let getReposByUsername = (user, callback) => {
       callback(res.data.data);
     })
     .catch((err) => {
-      console.log(err);
+      // console.log(err);
       callback(err);
     })
 }
 
-module.exports.getReposByUsername = getReposByUsername;
+// module.exports.getCardByName = getCardByName;

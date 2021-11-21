@@ -35,7 +35,7 @@ class App extends React.Component {
       this.renderCards();
     })
     .catch((err) => {
-      console.log('err');
+      console.log('err', err);
     })
   }
 
