@@ -3,30 +3,30 @@ mongoose.connect('mongodb://localhost/cardCollector', {useNewUrlParser: true, us
 .then(() => console.log('connected to db'))
 .catch(err => console.log(err));
 
-let repoSchema = mongoose.Schema({
+let cardSchema = mongoose.Schema({
   cardName: String,
   imgurl: {type: String, unique: true},
   price: Number,
   element: String,
 });
 
-let Repo = mongoose.model('Repo', repoSchema);
+let Cards = mongoose.model('Cards', cardSchema);
 
-let save = repoData => {
-  // console.log('saving', repoData)
-  const repo = new Repo({
-    cardName: repoData.cardName,
-    imgurl: repoData.imgurl,
-    price: repoData.price || 0,
+let save = cardData => {
+  // console.log('saving', cardData)
+  const card = new Cards({
+    cardName: cardData.cardName,
+    imgurl: cardData.imgurl,
+    price: cardData.price || 0,
   });
 
   const update = {
-    cardName: repoData.cardName,
-    imgurl: repoData.imgurl,
-    price: repoData.price || 0,
+    cardName: cardData.cardName,
+    imgurl: cardData.imgurl,
+    price: cardData.price || 0,
   };
 
-    Repo.findOneAndUpdate({ imgurl: repoData.imgurl }, update , {upsert: true})
+    Cards.findOneAndUpdate({ imgurl: cardData.imgurl }, update , {upsert: true})
       .then(updated => {
         return updated;
       })
@@ -36,7 +36,7 @@ let save = repoData => {
 };
 
 let find = () => {
-  return Repo.find().sort({price: -1}).limit(25).exec();
+  return Cards.find().sort({price: -1}).limit(25).exec();
 };
 
 module.exports.save = save;
